@@ -1,29 +1,39 @@
-"use client";
+import * as React from "react"
 
-import { cn } from "@/lib/utils";
+const Avatar = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={`relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full ${className}`}
+    {...props}
+  />
+))
+Avatar.displayName = "Avatar"
 
-interface AvatarProps {
-  className?: string;
-  children: React.ReactNode;
-}
+const AvatarImage = React.forwardRef<
+  HTMLImageElement,
+  React.ImgHTMLAttributes<HTMLImageElement>
+>(({ className, ...props }, ref) => (
+  <img
+    ref={ref}
+    className={`aspect-square h-full w-full ${className}`}
+    {...props}
+  />
+))
+AvatarImage.displayName = "AvatarImage"
 
-interface AvatarFallbackProps {
-  className?: string;
-  children: React.ReactNode;
-}
+const AvatarFallback = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={`flex h-full w-full items-center justify-center rounded-full bg-muted ${className}`}
+    {...props}
+  />
+))
+AvatarFallback.displayName = "AvatarFallback"
 
-export function Avatar({ className, children }: AvatarProps) {
-  return (
-    <div className={cn("relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full", className)}>
-      {children}
-    </div>
-  );
-}
-
-export function AvatarFallback({ className, children }: AvatarFallbackProps) {
-  return (
-    <div className={cn("flex h-full w-full items-center justify-center rounded-full bg-muted", className)}>
-      {children}
-    </div>
-  );
-}
+export { Avatar, AvatarImage, AvatarFallback }
